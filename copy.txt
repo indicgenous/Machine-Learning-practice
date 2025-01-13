@@ -68,4 +68,4 @@ RUNTIME:
 
 
 
-python src/dataset/create_data_txt.py --data_root /root/bdd100k/ --image_prefix images/train --mask_prefix labels/train --output_txt /root/bdd100k/training_list.txt
+python src/dataset/create_data_txt.py --data_root pspnet/data/data/bdd100k --image_prefix images/training --mask_prefix labels/training --output_txt pspnet/data/data/bdd100k/training_list.txt
