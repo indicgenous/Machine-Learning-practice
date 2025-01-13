@@ -1,39 +1,58 @@
 MODEL:
   NAME: "pspnet"
-  BACKBONE: "resnet50"  # Default backbone
-  PRETRAINED: True  # Use pretrained weights
-  NUM_CLASSES: 19  # Updated for BDD100K dataset (number of classes)
+  BACKBONE: "resnet50"
+  PRETRAINED: True
+  NUM_CLASSES: 19  # Updated for BDD100K (19 classes in segmentation)
+
+LOSS:
+  USE_OHEM: True
+  SCORE_THRESH: 0.7
 
 DATASET:
-  NAME: "bdd"  # Updated dataset name
-  ROOT: "data/dataset/bdd100k"  # Path to the dataset directory relative to the PSPNet repository
+  NAME: "bdd100k"  # Updated dataset name
+  ROOT: "./data/dataset/bdd100k"  # Path to the dataset root
   TRAIN_SET: "images/train"  # Path to training images
   VAL_SET: "images/val"  # Path to validation images
   TEST_SET: "images/test"  # Path to test images
-  TRAIN_LABELS: "labels/train"  # Path to training labels
-  VAL_LABELS: "labels/val"  # Path to validation labels
-  TEST_LABELS: "labels/test"  # Path to test labels
+
+DATALOADER:
+  NUM_WORKERS: 4  # Number of data loader workers
+  SHUFFLE: True
 
 SOLVER:
-  BASE_LR: 0.01  # Default learning rate
-  WEIGHT_DECAY: 0.0001  # Default weight decay
-  MOMENTUM: 0.9  # Default momentum
-  LR_SCHEDULER: "poly"  # Learning rate scheduler
+  BASE_LR: 0.01
+  LR_POLICY: "poly"  # Poly learning rate schedule
+  POWER: 0.9
+  MOMENTUM: 0.9
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+  GAMMA: 0.1
+  STEP_SIZE: 10
+  MAX_EPOCHS: 50  # Updated for training epochs
+  WARMUP_ITERS: 1000
+  WARMUP_FACTOR: 0.1
 
 TRAIN:
-  BATCH_SIZE: 8  # Adjust based on GPU memory
-  EPOCHS: 50  # Number of epochs
-  LOG_INTERVAL: 10  # Log training progress every 10 steps
-  EVAL_INTERVAL: 5  # Evaluate every 5 epochs
+  IMS_PER_BATCH: 16  # Batch size for training
+  BASE_LR: 0.01
+  END_LR: 0.0001
+  LR_SCHEDULER: "poly"
+  BATCH_SIZE_PER_GPU: 8  # Adjusted for GPU memory
+  LOGGING: True
+  PRINT_FREQ: 10  # Log interval
+  SAVE_FREQ: 5  # Save checkpoint every 5 epochs
+  SHUFFLE: True
 
 TEST:
-  BATCH_SIZE: 8  # Batch size for testing
-  METRIC: "mIoU"  # Evaluation metric
+  IMS_PER_BATCH: 8  # Batch size for testing
+  METRIC: "mIoU"
+  WEIGHT: ""  # Path to pre-trained weights (optional)
 
 RUNTIME:
-  GPU: [0]  # Specify GPU ID (update if running on a different GPU)
+  GPU: [0]  # Specify GPU(s) to use
   WORKERS: 4  # Number of workers for data loading
-  OUTPUT_DIR: "./output/bdd100k"  # Path to save outputs
-  LOG_DIR: "./logs/bdd100k"  # Path to save logs
-  CHECKPOINTS: "./checkpoints/bdd100k"  # Path to save checkpoints
-
+  OUTPUT_DIR: "./output/bdd100k"  # Directory for outputs
+  LOG_DIR: "./logs/bdd100k"  # Directory for logs
+  CHECKPOINTS: "./checkpoints/bdd100k"  # Directory for saving checkpoints
+  PRINT_FREQ: 10
+  SAVE_FREQ: 5
