@@ -1,38 +1,39 @@
-# Model Config
 MODEL:
   NAME: "pspnet"
-  BACKBONE: "resnet50"  # Or "resnet101" if needed
+  BACKBONE: "resnet50"  # Default backbone
   PRETRAINED: True  # Use pretrained weights
-  NUM_CLASSES: 19  # Update based on BDD dataset (e.g., 19 for BDD)
+  NUM_CLASSES: 19  # Updated for BDD100K dataset (number of classes)
 
-# Dataset Config
 DATASET:
-  NAME: "bdd"
-  ROOT: "/path/to/bdd_dataset"  # Path to the BDD dataset
-  TRAIN_SET: "images/train"
-  VAL_SET: "images/val"
-  TEST_SET: "images/test"
-  TRAIN_LABELS: "labels/train"
-  VAL_LABELS: "labels/val"
-  TEST_LABELS: "labels/test"
+  NAME: "bdd"  # Updated dataset name
+  ROOT: "data/dataset/bdd100k"  # Path to the dataset directory relative to the PSPNet repository
+  TRAIN_SET: "images/train"  # Path to training images
+  VAL_SET: "images/val"  # Path to validation images
+  TEST_SET: "images/test"  # Path to test images
+  TRAIN_LABELS: "labels/train"  # Path to training labels
+  VAL_LABELS: "labels/val"  # Path to validation labels
+  TEST_LABELS: "labels/test"  # Path to test labels
 
-# Training Config
+SOLVER:
+  BASE_LR: 0.01  # Default learning rate
+  WEIGHT_DECAY: 0.0001  # Default weight decay
+  MOMENTUM: 0.9  # Default momentum
+  LR_SCHEDULER: "poly"  # Learning rate scheduler
+
 TRAIN:
-  BATCH_SIZE: 8
-  EPOCHS: 50
-  BASE_LR: 0.01  # Learning rate
-  WEIGHT_DECAY: 0.0001
-  GPU: [0]  # Use GPU ID 0
+  BATCH_SIZE: 8  # Adjust based on GPU memory
+  EPOCHS: 50  # Number of epochs
+  LOG_INTERVAL: 10  # Log training progress every 10 steps
+  EVAL_INTERVAL: 5  # Evaluate every 5 epochs
 
-# Testing Config
 TEST:
-  BATCH_SIZE: 8
-  GPU: [0]  # Use GPU ID 0
+  BATCH_SIZE: 8  # Batch size for testing
+  METRIC: "mIoU"  # Evaluation metric
 
-# Logging and Checkpoints
-OUTPUT_DIR: "./output/bdd_pspnet"
-LOG_DIR: "./logs"
-CHECKPOINTS: "./checkpoints"
+RUNTIME:
+  GPU: [0]  # Specify GPU ID (update if running on a different GPU)
+  WORKERS: 4  # Number of workers for data loading
+  OUTPUT_DIR: "./output/bdd100k"  # Path to save outputs
+  LOG_DIR: "./logs/bdd100k"  # Path to save logs
+  CHECKPOINTS: "./checkpoints/bdd100k"  # Path to save checkpoints
 
-# Other settings (adjust based on your hardware and needs)
-WORKERS: 4  # Number of data loader workers
