@@ -55,4 +55,17 @@ RUNTIME:
   LOG_DIR: "./logs/bdd100k"  # Directory for logs
   CHECKPOINTS: "./checkpoints/bdd100k"  # Directory for saving checkpoints
   PRINT_FREQ: 10
-  SAVE_FREQ: 5
+  SAVE_FREQ: 5 
+
+
+
+
+
+
+
+
+
+
+
+
+python src/dataset/create_data_txt.py --data_root /root/bdd100k/ --image_prefix images/train --mask_prefix labels/train --output_txt /root/bdd100k/training_list.txt
