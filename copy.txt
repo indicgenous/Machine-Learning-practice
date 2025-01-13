@@ -1,37 +1,38 @@
-model:
-  name: pspnet
-  backbone: resnet50
-  pretrained: true
-  num_classes: 20  # Replace this with the actual number of classes in your dataset
+# Model Config
+MODEL:
+  NAME: "pspnet"
+  BACKBONE: "resnet50"  # Or "resnet101" if needed
+  PRETRAINED: True  # Use pretrained weights
+  NUM_CLASSES: 19  # Update based on BDD dataset (e.g., 19 for BDD)
 
-dataset:
-  name: bdd100k
-  root: /path/to/PSPNet/datasets/bdd100k  # Update with your dataset path
-  train:
-    images: /path/to/PSPNet/datasets/bdd100k/images/train
-    annotations: /path/to/PSPNet/datasets/bdd100k/labels/train
-  val:
-    images: /path/to/PSPNet/datasets/bdd100k/images/val
-    annotations: /path/to/PSPNet/datasets/bdd100k/labels/val
+# Dataset Config
+DATASET:
+  NAME: "bdd"
+  ROOT: "/path/to/bdd_dataset"  # Path to the BDD dataset
+  TRAIN_SET: "images/train"
+  VAL_SET: "images/val"
+  TEST_SET: "images/test"
+  TRAIN_LABELS: "labels/train"
+  VAL_LABELS: "labels/val"
+  TEST_LABELS: "labels/test"
 
-testing:
-  test_images: /path/to/PSPNet/datasets/bdd100k/images/test  # Path to test images
-  results_dir: ./results  # Directory to save test results
+# Training Config
+TRAIN:
+  BATCH_SIZE: 8
+  EPOCHS: 50
+  BASE_LR: 0.01  # Learning rate
+  WEIGHT_DECAY: 0.0001
+  GPU: [0]  # Use GPU ID 0
 
-training:
-  batch_size: 16  # Adjust based on your GPU memory
-  num_epochs: 50  # Number of training epochs
-  learning_rate: 0.001  # Base learning rate
-  weight_decay: 0.0001
-  lr_scheduler:
-    name: poly
-    power: 0.9
+# Testing Config
+TEST:
+  BATCH_SIZE: 8
+  GPU: [0]  # Use GPU ID 0
 
-onnx:
-  export_path: ./onnx_models  # Path to save ONNX models
-  opset_version: 11  # ONNX opset version
+# Logging and Checkpoints
+OUTPUT_DIR: "./output/bdd_pspnet"
+LOG_DIR: "./logs"
+CHECKPOINTS: "./checkpoints"
 
-logging:
-  log_interval: 10  # Log every N batches
-  save_dir: ./checkpoints  # Directory to save model checkpoints
-  save_interval: 5  # Save a checkpoint every N epochs
+# Other settings (adjust based on your hardware and needs)
+WORKERS: 4  # Number of data loader workers
