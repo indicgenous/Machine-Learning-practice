@@ -6,4 +6,6 @@ Deeplearning.AI  --  https://www.deeplearning.ai/
 
 Weights and Biases -- https://wandb.ai 
 
-numpy padding ---------- https://numpy.org/doc/stable/reference/generated/numpy.pad.html
+numpy padding ---------- https://numpy.org/doc/stable/reference/generated/numpy.pad.html 
+
+https://koaning.io/ 
