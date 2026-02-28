@@ -1,6 +1,7 @@
 Hi! I push everything that I learn. 
 
-<img width="546" height="435" alt="image" src="https://github.com/user-attachments/assets/4eff69c0-b9ff-4038-a05e-9a742bd52a33" />
+<img width="556" height="435" alt="image" src="https://github.com/user-attachments/assets/b2bf7faf-c51e-447a-b5d0-30c6262450b2" />
+
 
 
 
